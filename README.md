@@ -89,6 +89,7 @@
 - 커뮤니티 관련 Paging 구현<br>
 → 커뮤니티 리스트 및 상세페이지 front 추가<br>
 → 사용자, 관리자 게시글 관련 CRUD<br>
+→ 검색 기능<br>
 → 댓글 관련 CRUD 및 추천기능<br>
 
 <div><img src="https://github.com/user-attachments/assets/b790a7b8-e49d-4cad-8b32-6539247f4a3f" width="45%" height="45%"/>  <img src="https://github.com/user-attachments/assets/d0759d77-bd31-4b90-b154-340c404e5cca" width="45%" height="45%"/></div>
