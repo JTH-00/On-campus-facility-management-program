@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html
+        xmlns:sec="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.w3.org/1999/xhtml"
+        xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판</title>
+    <link rel="stylesheet" href="/css/css.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+<!-- 넷바 -->
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+        <span th:text="${roleid == '1' ? 'Admin' : 'RES'}" class="logo_name"></span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a th:href= "${roleid == '1' ? '/adminmainpage' : '/home'}">
+                <i class="uil uil-estate"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '대시보드' : '홈'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/facility' : '/user'}">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '시설현황' : '예약'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/user/rental' : '/reservation_info'}">
+                <i class="uil uil-chart"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '사용자 통계' : '예약현황'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/userinfo' : '/update'}">
+                <i class="uil uil-chat-bubble-user"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '회원관리' : '프로필'}"></span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '커뮤니티 관리' : '게시판'}"></span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 질문 -->
+<div class="main">
+    <div class="board_wrap">
+        <div class="board_view_title">
+            <strong>자유게시판</strong>
+            <p>서로 공유할 거리가 있으신가요?</p>
+        </div>
+        <div class="board_view_link">
+            <a href="/home"><img class="noticelink" src="/img/homeicon.png"></a>
+            <a href="/question/questionmain">
+                <p>> COMMUNITY ></p>
+            </a>
+            <a href="/question/freeboard">
+                <p>자유게시판</p>
+            </a>
+        </div>
+        <div class="board_view_wrap">
+            <div class="board_view">
+                <div class="title" th:text="${question.subject}">
+
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>글쓴이</dt>
+                        <dd>
+                            <div>
+                                <span th:if="${question.author != null}" th:text="${question.author.userid}"></span>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd>
+                            <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>수정일</dt>
+                        <dd>
+                            <div
+                                    th:if="${question.modifyDate != null}"
+                                    class="badge bg-light text-dark p-2 text-start mx-3">
+                                <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div class="board_menu">
+                        <a th:href="@{|/question/freeboard/modify/${question.id}|}"
+                                class="btn btn-sm btn-outline-secondary"
+                                sec:authorize="isAuthenticated()"
+                                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.userid}"
+                                th:text="수정"></a>
+                        <a href="javascript:void(0);"
+                                th:data-uri="@{|/question/freeboard/delete/${question.id}|}"
+                                class="delete btn btn-sm btn-outline-secondary"
+                                sec:authorize="isAuthenticated()"
+                                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.userid}"
+                                th:text="삭제"></a>
+                    </div>
+                </div>
+                <div class="cont" th:utext="${question.content}">
+                </div>
+                <div class="my-3">
+                    <a href="javascript:void(0);" th:class="${vote == 0 ? 'recommend': 'not_recommend'}" th:data-uri="@{|/question/vote/${question.id}|}">
+                        추천
+                        <i class="uil uil-thumbs-up"></i>
+                        <span class="recommend_count" th:text="${#lists.size(question.voter)}"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- 답변의 갯수 표시 -->
+            <div class="comment_count">
+                <div class="comment">
+                    <p>댓글</p>
+                </div>
+                <div class="count" th:text="|${#lists.size(question.answerList)}|">
+                </div>
+            </div>
+            <!-- 답변 반복 시작 -->
+            <div class="board_comment" th:each="answer : ${question.answerList}">
+                <a th:id="|answer_${answer.id}|"></a>
+                <div class="comment_slot">
+                    <dl>
+                        <dt th:if="${answer.author != null}" th:text="${answer.author.username}"></dt>
+                    </dl>
+                    <dd>
+                        <div class="card-text" th:utext="${answer.content}"></div>
+
+                    </dd>
+
+                    <div class="comment_date"
+                         th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div class="comment_menu">
+                        <div class="comment_recommend">
+                            <a href="javascript:void(0);" th:class="${answer.id!= #vars['tlqkf' + answerStat.index] ? 'recommend_button': 'not_recommend_button'}"
+                               th:data-uri="@{|/answer/vote/${answer.id}|}">
+                                추천
+                                <p class="recommend_count" th:text="${#lists.size(answer.voter)}"></p>
+                            </a>
+                        </div>
+                        <div class="comment_tab">
+                            <a th:href="@{|/answer/modify/${answer.id}|}"
+                                    class="btn-modal"
+                                    sec:authorize="isAuthenticated()"
+                                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.userid}"
+                                    th:text="수정"></a>
+                            <a href="javascript:void(0);"
+                                    th:data-uri="@{|/answer/delete/${answer.id}|}"
+                                    class="delete btn btn-sm btn-outline-secondary"
+                                    sec:authorize="isAuthenticated()"
+                                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.userid}"
+                                    th:text="삭제"></a>
+                        </div>
+                    </div>
+                    <div class="comment_fix" th:if="${answer.modifyDate}">
+                        <p>수정됨</p>
+                        <p th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></p>
+                    </div>
+                </div>
+                <!-- <div class="comment_slot2" th:each="question, loop : ${paging}" th:if="${!paging.isEmpty()}">
+                     <ul class="pagination justify-content-center">
+                         <a href="#" class="bt prev" th:href="@{|?page=${paging.number-1}|}"
+                            th:classappend="${!paging.hasPrevious} ? 'disabled'" th:data-page="${paging.number-1}">><</a>
+                         <a class="num" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                            th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                            th:classappend="${page == paging.number} ? 'active'" th:text="${page}"
+                            th:href="@{|?page=${page}|}" th:data-page="${page}" style="width:32px">
+                         </a>
+                         <a class="bt next" th:href="@{|?page=${paging.number+1}|}"
+                            th:classappend="${!paging.hasNext} ? 'disabled'" th:data-page="${paging.number+1}">
+                             <span>></span>
+                         </a>
+                     </ul>
+                 </div> -->
+            </div>
+            <!-- 답변 반복 끝 -->
+            <!-- 답변 작성 -->
+            <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="comment_slot3">
+                <div class="text">
+                    <div class="user">
+                    </div>
+                <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" placeholder="내용 입력" rows="10"></textarea>
+                    <input type="submit" value="답변등록" class="btn btn-primary my-2">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+<script layout:fragment="script" type='text/javascript'>
+            const page_elements = document.getElementsByClassName("page-link");
+            Array.from(page_elements).forEach(function(element) {
+                element.addEventListener('click', function() {
+                    document.getElementById('page').value = this.dataset.page;
+                    document.getElementById('searchForm').submit();
+                });
+            });
+            const delete_elements = document.getElementsByClassName("delete");
+            Array
+                .from(delete_elements)
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        if (confirm("정말로 삭제하시겠습니까?")) {
+                            location.href = this.dataset.uri;
+                        };
+                    });
+                });
+            const recommend_elements = document.getElementsByClassName("recommend");
+            Array
+                .from(recommend_elements)
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        if (confirm("정말로 추천하시겠습니까?")) {
+                            location.href = this.dataset.uri;
+                        };
+                    });
+                });
+            const not_recommend_elements = document.getElementsByClassName("not_recommend");
+            Array
+                .from(not_recommend_elements)
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                       alert("이미 추천한 게시글입니다.")
+                    });
+                });
+            const recommend_button_elements = document.getElementsByClassName("recommend_button");
+            Array
+                .from(recommend_button_elements)
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        if (confirm("정말로 추천하시겠습니까?")) {
+                            location.href = this.dataset.uri;
+                        };
+                    });
+                });
+            const not_recommend_button_elements = document.getElementsByClassName("not_recommend_button");
+            Array
+                .from(not_recommend_button_elements)
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        alert("이미 추천한 댓글입니다.")
+                    });
+                });
+
+
+</script>
+</html>

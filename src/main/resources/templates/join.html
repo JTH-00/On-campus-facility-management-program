@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <!---<title></title>--->
+    <link rel="stylesheet" href="/css/join.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+    <div class="title">회원등록</div>
+    <form th:action="@{/joining}" th:object="${userCreateForm}" method="post">
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+        <div class="content">
+            <form action="#">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">이름</span>
+                        <input type="text" th:field="*{username}"placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">아이디</span>
+                        <input type="text" th:field="*{userid}" placeholder="Enter your id" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">비밀번호</span>
+                        <input type="text" th:field="*{password1}" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">비밀번호 확인</span>
+                        <input type="text" th:field="*{password2}" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">전화번호</span>
+                        <input type="text" th:field="*{phone}" placeholder="Enter your number" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">이메일</span>
+                        <input type="text" th:field="*{email}" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btn-btn-primary">회원가입</button>
+                </div>
+            </form>
+        </div>
+</div>
+
+</body>
+</html>

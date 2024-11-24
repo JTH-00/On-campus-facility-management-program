@@ -1,0 +1,91 @@
+<!--유저 회원정보 수정 및 탈퇴-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/MyPage.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>MyProfile</title>
+</head>
+<body>
+<form th:action="@{/update}" method="post">
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <!--<img src="images/logo.png" alt="">-->
+            </div>
+            <span th:text="${roleid == 1 ? 'Admin' : 'RES'}" class="logo_name"></span>
+        </div>
+    
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a th:href= "${roleid == 1 ? '/adminmainpage' : '/home'}">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name" th:text="${roleid == 1 ? '대시보드' : '홈'}"></span>
+                </a></li>
+                <li><a th:href= "${roleid == 1 ? '/admin/facility' : '/user'}">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name" th:text="${roleid == 1 ? '시설현황' : '예약'}"></span>
+                </a></li>
+                <li><a th:href= "${roleid == 1 ? '/admin/user/rental' : '/reservation_info'}">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name" th:text="${roleid == 1 ? '사용자 통계' : '예약현황'}"></span>
+                </a></li>
+                <li><a th:href= "${roleid == 1 ? '/admin/userinfo' : '/update'}">
+                    <i class="uil uil-chat-bubble-user"></i>
+                    <span class="link-name" th:text="${roleid == 1 ? '회원관리' : '프로필'}"></span>
+                </a></li>
+                <li><a href="/question/questionmain">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name" th:text="${roleid == 1 ? '커뮤니티 관리' : '게시판'}"></span>
+                </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+                <li><a href="/logout">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">로그아웃</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <h1 class="MyPage-title">Account Information</h1>
+        <hr>
+        <div class="fix">
+            <div class="name">
+                <h2>change your name</h2>
+                <input type="text" class="in-name" th:value="${updateUser.username}" name="username" />
+            </div>
+            <div class="id">
+                <h2>your id</h2>
+                <input type="text" class="in-id" th:value="${updateUser.userid}" name="userid" readonly />
+            </div>
+            <div class="phone">
+                <h2>change your phone-Number</h2>
+                <input type="text" class="in-phone" th:value="${updateUser.userphone}" name="phone" />
+            </div>
+            <div class="email">
+                <h2>change your email</h2>
+                <input type="text" class="in-email" th:value="${updateUser.useremail}" name="email" />
+            </div>
+            <div class="profile-picture">
+                <h2 class="profile-picture-box">Profile Picture</h2>
+                <img class="user-img" src="/img/user.png" style="width:400px;">
+            </div>
+            <hr class="division">
+            <div class="btn-group">
+                <button type="submit" class="fix-btn">수정</button>
+                <button class="delete-btn"><a href="/delete">회원탈퇴</a></button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="manager-info"></div>
+    </footer>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+</form>
+</body>
+</html>

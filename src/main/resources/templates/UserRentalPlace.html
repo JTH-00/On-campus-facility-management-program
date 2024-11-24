@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userrental.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Admin Reservation</title>
+    <script>
+        $(function() {
+          $("#datepicker").datepicker();
+        });
+        </script>
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+
+        <span class="logo_name">Admin</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="/adminmainpage">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">대시보드</span>
+            </a></li>
+            <li><a href="/admin/facility">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name">시설현황</span>
+            </a></li>
+            <li><a href="/admin/user/rental">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">사용자 통계</span>
+            </a></li>
+            <li><a href="/admin/userinfo">
+                <i class="uil uil-thumbs-up"></i>
+                <span class="link-name">회원관리</span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">커뮤니티 관리</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<section class="dashboard">
+    <div>
+        <form th:action="@{/admin/user/rental}" method="post">
+            <div class="top">
+                <!--
+                    캘린더 기능완성
+                    <div class="calendar-box">
+                        <div id="mini-calendar"></div>
+                    </div>
+                -->
+            </div>
+            <div class="reservation-status">
+                <div class="my-input">
+                    <label class="label-reserve-location">장소</label>
+                    <label class="label-reserve-id">아이디</label>
+                    <label class="label-reserve-user">예약자</label>
+                    <label class="label-reserve-date">날짜</label>
+                    <label class="label-reserve-time">예약시간</label>
+                </div>
+                <div class="status-box" th:each="rental: ${rentals}">
+                    <h1 class="reserve-location"><span th:text="${rental.place.placename}"></span></h1>
+                    <h1 class="m_id"><span th:text="${rental.user.userid}"></span></h1>
+                    <h1 class="reserve-info"><span th:text="${rental.user.username}"></span></h1>
+                    <h1 class="reserve-date"><span th:text="${rental.rentaldate}"></span></h1>
+                    <h1 class="time" th:text="${rental.rentaltime}"></h1>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="/js/userretal.js"></script>
+</body>
+</html>

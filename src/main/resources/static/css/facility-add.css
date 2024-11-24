@@ -1,0 +1,338 @@
+/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    /* ===== Colors ===== */
+    --primary-color: #0E4BF1;
+    --panel-color: #FFF;
+    --text-color: #000;
+    --black-light-color: #707070;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --box1-color: #4DA3FF;
+    --box2-color: #FFE6AC;
+    --box3-color: #E7D1FC;
+    --title-icon-color: #fff;
+    
+    /* ====== Transition ====== */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
+}
+
+body{
+    min-height: 100vh;
+}
+/* === Custom Scroll Bar CSS === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0b3cc1;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
+}
+nav.close{
+    width: 73px;
+}
+nav .logo-name{
+    display: flex;
+    align-items: center;
+}
+nav .logo-image{
+    display: flex;
+    justify-content: center;
+    min-width: 45px;
+}
+nav .logo-image img{
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+nav .logo-name .logo_name{
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-left: 14px;
+    transition: var(--tran-05);
+}
+nav.close .logo_name{
+    opacity: 0;
+    pointer-events: none;
+}
+nav .menu-items{
+    margin-top: 40px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.menu-items li{
+    list-style: none;
+}
+.menu-items li a{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
+}
+.nav-links li a:hover:before{
+    content: "";
+    position: absolute;
+    left: -7px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+.menu-items li a i{
+    font-size: 24px;
+    min-width: 45px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color);
+}
+.menu-items li a .link-name{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black-light-color);    
+    transition: var(--tran-05);
+}
+nav.close li a .link-name{
+    opacity: 0;
+    pointer-events: none;
+}
+.nav-links li a:hover i,
+.nav-links li a:hover .link-name{
+    color: var(--primary-color);
+}
+/*main ===============================*/
+.dashboard {
+    text-align: center;
+}
+.empty {
+    width: 1px;
+    height: 1px;
+    margin-top: 30px;
+}
+.dashboard h1 {
+    display: inline-block;
+    font-size: 48px;
+    margin-top: 50px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+.input-container {
+    margin: 50px auto;
+    width: 300px;
+    display: block;
+    text-align: center;
+}
+
+.input-container input {
+display: block;
+font-size: 18px;
+padding: 10px;
+width: 100%;
+border: none;
+border-bottom: 2px solid #ddd;
+background-color: transparent;
+border: solid 2px var(--border-color);
+border-radius: 12px;
+}
+.input-container input::placeholder {
+font-weight: 900;
+text-align: center;
+}
+
+.input-container label {
+top: 0;
+left: 0;
+font-size: 18px;
+padding: 10px;
+pointer-events: none;
+font-weight: 900;
+color: var(--box1-color);
+transition: all 0.3s ease;
+display: block;
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label {
+top: -20px;
+left: 0;
+color: #2196F3;
+font-size: 14px;
+}
+.my-button {
+    margin-top: 30px;
+    background-color: #2196F3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .my-button:hover {
+    background-color: #0b7dda;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .my-button:active {
+    background-color: #0a6cb9;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px);
+}
+
+/*config*/
+@media (max-width: 1000px) {
+    nav{
+        width: 73px;
+    }
+    nav.close{
+        width: 250px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav.close ~ .dashboard{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    nav ~ .dashboard .top{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav.close ~ .dashboard .top{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    .activity .activity-data{
+        overflow-X: scroll;
+    }
+}
+
+@media (max-width: 780px) {
+    .dash-content .boxes .box{
+        width: calc(100% / 2 - 15px);
+        margin-top: 15px;
+    }
+}
+@media (max-width: 560px) {
+    .dash-content .boxes .box{
+        width: 100% ;
+    }
+}
+@media (max-width: 400px) {
+    nav{
+        width: 0px;
+    }
+    nav.close{
+        width: 73px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav ~ .dashboard{
+        left: 0;
+        width: 100%;
+    }
+    nav.close ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
+    nav.close ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
+}
+
+/*.dashboard {
+    text-align: center;
+}
+.dashboard h1 {
+    display: inline-block;
+    font-size: 48px;
+    margin-top: 50px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}*/

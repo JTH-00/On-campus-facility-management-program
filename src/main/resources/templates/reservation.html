@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약</title>
+    <link rel="stylesheet" href="/css/reserveTime.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+
+        <span class="logo_name">RES</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="/home">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">홈</span>
+            </a></li>
+            <li><a href="/user">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name">예약</span>
+            </a></li>
+            <li><a href="/reservation_info">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">예약현황</span>
+            </a></li>
+            <li><a href="/update">
+                <i class="uil uil-chat-bubble-user"></i>
+                <span class="link-name">프로필</span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">게시판</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 여기부터 페이지 메인 -->
+<form th:action="@{/sendRental/{placeid}(placeid=${places.placeid})}" th:object="${rentalCreateForm}" method="post">
+    <!-- 여기부터 페이지 메인 -->
+    <main>
+        <h1 class="reserve_font">Reservation</h1>
+        <input type="date" id="date-input" th:field="*{rentaldate}" name="rentaldate" class="Date">
+        <h1 class="place-time-name">2층 강의실</h1>
+        <div class="timeReserve">
+            <!--시간 예약-->
+            <input type="hidden" id="rentaltime" name="rentaltime" value="">
+            <div class="time">
+                <h1 class="time-name" >09:00am</h1>
+                <input type="submit" name="reserve_09" class="reserve" value="예약" onclick="setRentalTime('09:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >10:00am</h1>
+                <input type="submit" name="reserve_10"  class="reserve" value="예약" onclick="setRentalTime('10:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >11:00am</h1>
+                <input type="submit" name="reserve_11"  class="reserve" value="예약" onclick="setRentalTime('11:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >13:00pm</h1>
+                <input type="submit" name="reserve_13"  class="reserve" value="예약" onclick="setRentalTime('13:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >14:00pm</h1>
+                <input type="submit" name="reserve_14"  class="reserve" value="예약" onclick="setRentalTime('14:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >15:00pm</h1>
+                <input type="submit" name="reserve_15"  class="reserve" value="예약" onclick="setRentalTime('15:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >16:00pm</h1>
+                <input type="submit" name="reserve_16"  class="reserve" value="예약" onclick="setRentalTime('16:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >17:00pm</h1>
+                <input type="submit" name="reserve_17"  class="reserve" value="예약" onclick="setRentalTime('17:00')">
+            </div>
+            <div class="time">
+                <h1 class="time-name" >18:00pm</h1>
+                <input type="submit" name="reserve_18"  class="reserve" value="예약" onclick="setRentalTime('18:00')">
+            </div>
+        </div>
+        <script>
+            // 현재 날짜 및 시간 가져오기
+            var today = new Date();
+            var koreaTime = new Date(today.toLocaleString("en-US", {timeZone: "Asia/Seoul"}));
+
+            // 날짜를 YYYY-MM-DD 형식으로 변환
+            var year = koreaTime.getFullYear();
+            var month = String(koreaTime.getMonth() + 1).padStart(2, '0');
+            var day = String(koreaTime.getDate()).padStart(2, '0');
+            var formattedDate = year + '-' + month + '-' + day;
+
+            // 오늘 이전의 날짜를 선택할 수 없도록 설정
+            var minDate = formattedDate;
+
+            document.getElementById('date-input').setAttribute('min', minDate);
+            document.getElementById('date-input').setAttribute('value', formattedDate);
+        </script>
+        <script>
+            function setRentalTime(time) {
+                document.getElementById('rentaltime').value = time;
+            }
+        </script>
+    </main>
+    <script src="/js/alert.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/js/reserveTime.js"></script>
+</form>
+</body>
+</html>

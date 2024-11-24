@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" href="/css/css.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+
+        <span th:text="${roleid == '1' ? 'Admin' : 'RES'}" class="logo_name"></span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a th:href= "${roleid == '1' ? '/adminmainpage' : '/home'}">
+                <i class="uil uil-estate"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '대시보드' : '홈'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/facility' : '/user'}">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '시설현황' : '예약'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/user/rental' : '/reservation_info'}">
+                <i class="uil uil-chart"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '사용자 통계' : '예약현황'}"></span>
+            </a></li>
+            <li><a th:href= "${roleid == '1' ? '/admin/userinfo' : '/update'}">
+                <i class="uil uil-chat-bubble-user"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '회원관리' : '프로필'}"></span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name" th:text="${roleid == '1' ? '커뮤니티 관리' : '게시판'}"></span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<div class="main">
+    <div class="main_page">
+        <div class="main_page_main">
+            <div class="main_page_title">
+                <p>부천대학교 시설 예약</p>
+                <strong>궁금한 사항이 있다면 여쭤보세요</strong>
+            </div>
+        </div>
+        <div class="main-img-box">
+            <img class="main-img" src="/img/Library.png">
+        </div>
+    </div>
+    <div class="board_wrap3">
+        <div class="board_title3">
+            <strong>게시판 리스트</strong>
+        </div>
+        <div class="notice">
+            <a href="notice">
+                <div class="non-click" id="notice1">공지사항</div>
+            </a>
+            <a href="freeboard">
+                <div class="non-click" id="notice2">학생 게시판</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="board_wrap3">
+        <div class="board_title3">
+            <strong>자주찾는 게시판</strong>
+            <p>학생들이 자주 이용하거나 보는 게시판입니다.</p>
+        </div>
+    </div>
+    <div class="board_main">
+        <div class="board_main1">
+            <strong>공지사항</strong>
+            <p><a href="notice">>더보기</a></p>
+            <div class="board_list">
+                <div class="top" th:each="notice, loop : ${paging2}">
+                    <div class="title1"><a th:href="@{|/question/notice/detail/${notice.id}|}"
+                                           th:text="${notice.subject}"></a></div>
+                    <div class="writer1"><span th:if="${notice.author != null}"
+                                               th:text="${notice.author.username}"></span></div>
+                    <div class="date1" th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="board_main2">
+            <strong>학생 게시판</strong>
+            <p><a href="freeboard">>더보기</a></p>
+            <div class="board_list">
+                <div class="top" th:each="question, loop : ${paging}">
+                    <div class="title1"><a th:href="@{|/question/freeboard/detail/${question.id}|}"
+                                           th:text="${question.subject}"></a></div>
+                    <div class="writer1"><span th:if="${question.author != null}"
+                                               th:text="${question.author.username}"></span></div>
+                    <div class="date1" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="Home.js"></script>
+</body>
+</html>

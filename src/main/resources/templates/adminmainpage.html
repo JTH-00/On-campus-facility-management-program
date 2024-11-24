@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="/css/manager.css">
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <!--<title>Admin Dashboard Panel</title>-->
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<form th:action="@{/mainpage}">
+  <nav>
+    <div class="logo-name">
+      <div class="logo-image">
+        <!--<img src="images/logo.png" alt="">-->
+      </div>
+
+      <span class="logo_name">Admin</span>
+    </div>
+
+    <div class="menu-items">
+      <ul class="nav-links">
+        <li><a href="/adminmainpage">
+          <i class="uil uil-estate"></i>
+          <span class="link-name">대시보드</span>
+        </a></li>
+        <li><a href="/admin/facility">
+          <i class="uil uil-files-landscapes"></i>
+          <span class="link-name">시설현황</span>
+        </a></li>
+        <li><a href="/admin/user/rental">
+          <i class="uil uil-chart"></i>
+          <span class="link-name">사용자 통계</span>
+        </a></li>
+        <li><a href="/admin/userinfo">
+          <i class="uil uil-thumbs-up"></i>
+          <span class="link-name">회원관리</span>
+        </a></li>
+        <li><a href="/question/questionmain">
+          <i class="uil uil-comments"></i>
+          <span class="link-name">커뮤니티 관리</span>
+        </a></li>
+      </ul>
+
+      <ul class="logout-mode">
+        <li><a href="/logout">
+          <i class="uil uil-signout"></i>
+          <span class="link-name">로그아웃</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="dashboard">
+    <div class="dash-content">
+      <div class="overview">
+        <div class="title">
+          <i class="uil uil-tachometer-fast-alt"></i>
+          <span class="text">통계</span>
+        </div>
+
+        <div class="boxes">
+          <div class="box box1">
+            <i class="uil uil-notes"></i>
+            <span class="text">전체 예약 수</span>
+            <span class="number" th:text="${rentalCount}"></span>
+          </div>
+          <div class="box box2">
+            <i class="uil uil-comments"></i>
+            <span class="text">전체 게시물 수</span>
+            <span class="number" th:text="${questionCount}"></span>
+          </div>
+          <div class="box box3">
+            <i class="uil uil-user-md"></i>
+            <span class="text">전체 회원 수</span>
+            <span class="number" th:text="${userCount}"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity">
+        <div class="title">
+          <i class="uil uil-clock-three"></i>
+          <span class="text">최근 접속</span>
+        </div>
+
+        <div class="activity-data">
+          <div class="data names">
+            <span class="data-title">Name</span>
+            <span class="data-list">승민</span>
+            <span class="data-list">태흠</span>
+            <span class="data-list">다운</span>
+            <span class="data-list">민호</span>
+            <span class="data-list">하겸</span>
+          </div>
+          <div class="data email">
+            <span class="data-title">Email</span>
+            <span class="data-list">승민@gmail.com</span>
+            <span class="data-list">태흠@gmail.com</span>
+            <span class="data-list">다운@gmail.com</span>
+            <span class="data-list">민호@gmail.com</span>
+            <span class="data-list">하겸@gmail.com</span>
+          </div>
+          <div class="data joined">
+            <span class="data-title">Joined</span>
+            <span class="data-list">2022-02-12</span>
+            <span class="data-list">2022-02-12</span>
+            <span class="data-list">2022-02-13</span>
+            <span class="data-list">2022-02-13</span>
+            <span class="data-list">2022-02-14</span>
+          </div>
+          <div class="data type">
+            <span class="data-title">Type</span>
+            <span class="data-list">New</span>
+            <span class="data-list">Member</span>
+            <span class="data-list">Member</span>
+            <span class="data-list">New</span>
+            <span class="data-list">Member</span>
+          </div>
+          <div class="data status">
+            <span class="data-title">Status</span>
+            <span class="data-list">Liked</span>
+            <span class="data-list">Liked</span>
+            <span class="data-list">Liked</span>
+            <span class="data-list">Liked</span>
+            <span class="data-list">Liked</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="/js/manager.js"></script>
+  <!--<script src="script.js"></script>-->
+</form>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>예약현황</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/reservation -status.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script>
+        $(function() {
+          $("#datepicker").datepicker();
+        });
+    </script>
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+
+        <span class="logo_name">RES</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="/home">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">홈</span>
+            </a></li>
+            <li><a href="/user">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name">예약</span>
+            </a></li>
+            <li><a href="/reservation_info">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">예약현황</span>
+            </a></li>
+            <li><a href="/update">
+                <i class="uil uil-chat-bubble-user"></i>
+                <span class="link-name">프로필</span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">게시판</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<section class="dashboard">
+    <form th:action="@{/reservation_info}" method="post">
+        <div class="top">
+            <div class="reservation-status">
+                <div class="my-input">
+                    <label class="label-reserve-location">장소</label>
+                    <label class="label-reserve-date">날짜</label>
+                    <label class="label-reserve-time">예약시간</label>
+                </div>
+                <div class="status-box" th:each="rental: ${rentals}" th:if="${#temporals.createNow().toLocalDate().isBefore(rental.rentaldate) || #temporals.createNow().toLocalDate().isEqual(rental.rentaldate)}">
+                    <h1 class="reserve-location"><span th:text="${rental.place.placename}"></span></h1>
+                    <h1 class="reserve-date"><span th:text="${rental.rentaldate}"></span></h1>
+                    <h1 class="time" th:text="${rental.rentaltime}"></h1>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<script src="/manage_reservation/reservation.js"></script>
+</body>
+</html>

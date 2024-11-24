@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약</title>
+    <link rel="stylesheet" href="/css/Reservation.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--<img src="images/logo.png" alt="">-->
+        </div>
+        <span class="logo_name">RES</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="/home">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">홈</span>
+            </a></li>
+            <li><a href="/user">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name">예약</span>
+            </a></li>
+            <li><a href="/reservation_info">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">예약현황</span>
+            </a></li>
+            <li><a href="/update">
+                <i class="uil uil-chat-bubble-user"></i>
+                <span class="link-name">프로필</span>
+            </a></li>
+            <li><a href="/question/questionmain">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">게시판</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/logout">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">로그아웃</span>
+            </a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 여기부터 페이지 메인 -->
+<main>
+    <h1 class="reserve_font">Reservation</h1>
+    <div class="group">
+        <!-- 예약하기위한 박스 -->
+        <div class="select_room">
+            <!--예약박스-->
+            <div class="select_room_cnt" th:each="place: ${places}">
+                <div class="select_room_font" th:text="'시설: '+${place.placename}"></div>
+                <div class="select_room_font" th:text="'위치: '+${place.placelocation}"></div>
+                <button class="reserve-btn"><a th:href="@{/reservation/{placeid}(placeid=${place.placeid})}">예약</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="foot-info">
+        <h1 class="developer">
+            <br>
+            문의
+            <br>
+            <br>
+            정승민 : 010-4378-0645
+            <br>
+            <br>
+            조다운 : 010-9903-5140
+            <br>
+            <br>
+            진태흠 : 010-6455-9081
+            <br>
+        </h1>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/Reservation.js"></script>
+</body>
+</html>

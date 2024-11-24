@@ -1,0 +1,44 @@
+<!--유저 회원정보 수정 및 탈퇴-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>UserProfile</title>
+</head>
+<body>
+<form th:action="@{/admin/updateuserinfo/{userid}(userid=*{userid})}" method="post">
+  <div class="main">
+    <h1 class="MyPage-title">Account Information</h1>
+    <hr>
+    <div class="fix">
+      <div class="  name">
+        <h2>change your name</h2>
+        <input type="text" class="in-name" th:value="${updateUsers.username}" name="username" />
+      </div>
+      <div class="id">
+        <h2>your id</h2>
+        <input type="text" class="in-id" th:value="${updateUsers.userid}" name="userid" readonly />
+      </div>
+      <div class="password">
+        <h2>change your password</h2>
+        <input type="text" class="in-password" th:value="${updateUsers.userpw}" name="password" />
+      </div>
+      <div class="phone">
+        <h2>change your phone-Number</h2>
+        <input type="text" class="in-phone" th:value="${updateUsers.userphone}" name="phone" />
+      </div>
+      <div class="email">
+        <h2>change your email</h2>
+        <input type="text" class="in-email" th:value="${updateUsers.useremail}" name="email" />
+      </div>
+      <div class="role">
+        <h2>change your role</h2>
+        <input type="text" class="in-role" th:value="${updateUsers.role.roleid}" name="role" />
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="fix-btn">수정</button>
+      </div>
+    </div>
+  </div>
+</form>
+</body>
+</html>
